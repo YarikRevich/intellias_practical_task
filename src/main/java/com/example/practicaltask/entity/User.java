@@ -6,15 +6,13 @@ import javax.persistence.Id;
 
 import java.io.Serializable;
 import javax.persistence.GeneratedValue;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.GenerationType;
 
 @Entity
 @Table(name = "users")
 public class User implements Serializable{
     @Id
-    // @JsonIgnore
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String firstName;
     private String lastName;
