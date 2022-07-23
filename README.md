@@ -21,6 +21,8 @@ In order to test its functionality, you should before of all run wep-application
 java -jar target/practicaltest* # runs built jar file
 ```
 
+Default address of web-application is **localhost:8080**
+
 In general, there exist such endpoints
 
 | Name | Parameters | Description
