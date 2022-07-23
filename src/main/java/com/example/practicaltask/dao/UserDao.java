@@ -22,11 +22,17 @@ public class UserDao {
 
     /**
      * Displays all the registered users
+     * @return list of all existing users
      */
     public ArrayList<User> getAllUsers(){
         return new ArrayList<User>(userRepository.findAll());
     }
 
+    /**
+     * Fetches user by id
+     * @param id id of the user
+     * @return User model
+     */
     public User getUserById(long id) throws Exception{
         User user = null;
         if (userRepository.existsById(id)){
@@ -38,7 +44,9 @@ public class UserDao {
     }
 
     /**
-     * 
+     * Fetches amount of money belonging to certain user
+     * @param id id of the user
+     * @return amount of money belonging to the user
      */
     public int getUserMoneyAmount(long id) throws Exception{
         User user = this.getUserById(id);
@@ -54,12 +62,18 @@ public class UserDao {
 
     /**
      * Deletes user from user repository
+     * @param id id of the user
      */
     public void deleteUser(long id) throws Exception{
         User user = this.getUserById(id);
         userRepository.delete(user);
     }
 
+    /**
+     * Sets new amount of money to user with certain id
+     * @param id id of the user
+     * @param moneyAmount new amount of money
+     */
     public void setUserMoneyAmount(long id, int moneyAmount) throws Exception{
         User user = this.getUserById(id);
         user.setMoneyAmount(moneyAmount);

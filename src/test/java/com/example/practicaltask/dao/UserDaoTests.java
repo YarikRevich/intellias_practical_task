@@ -1,6 +1,9 @@
 package com.example.practicaltask.dao;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import static org.junit.Assert.*;
 
 import com.example.practicaltask.entity.User;
@@ -13,13 +16,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 /**
- * Integrational tests for UserDao
+ * Unit tests for UserDao
  */
 @Import({DataLoader.class, ProductDao.class, UserDao.class})
 @DataJpaTest
 public class UserDaoTests {
     @Autowired
     private UserDao userDao;
+
+    @BeforeEach
+    public void setUp() throws Exception{
+        ArrayList<User> users = userDao.getAllUsers();
+        for (User user : users){
+            userDao.deleteUser(user.getId());
+        };
+    }
 
     @Test
     public void testCreateUser(){
@@ -65,7 +76,7 @@ public class UserDaoTests {
     }
 
     @Test
-    public void getUserById(){
+    public void testGetUserById(){
         User user = new User();
         user.setFirstName("Boris");
         user.setLastName("Johnson");
@@ -75,6 +86,72 @@ public class UserDaoTests {
 
         try {
             userDao.getUserById(user.getId());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testGetAllUsers(){
+        User user1 = new User();
+        user1.setFirstName("Boris");
+        user1.setLastName("Johnson");
+        user1.setMoneyAmount(1000);
+
+        User user2 = new User();
+        user2.setFirstName("Volodymyr");
+        user2.setLastName("Zelenskyi");
+        user2.setMoneyAmount(100);
+
+        userDao.createUser(user1);
+        userDao.createUser(user2);
+
+        ArrayList<User> users = userDao.getAllUsers();
+        assertEquals(users.size(), 2);
+        assertEquals(users.get(0), user1);
+        assertEquals(users.get(1), user2);
+    }
+
+    @Test
+    public void testGetUserMoneyAmount(){
+        User user = new User();
+        user.setFirstName("Boris");
+        user.setLastName("Johnson");
+        user.setMoneyAmount(1000);
+
+        userDao.createUser(user);
+
+        try{
+            assertEquals(userDao.getUserMoneyAmount(user.getId()), user.getMoneyAmount());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testSetUserMoneyAmount(){
+        User user = new User();
+        user.setFirstName("Boris");
+        user.setLastName("Johnson");
+        user.setMoneyAmount(1000);
+
+        userDao.createUser(user);
+
+        try{
+            assertEquals(userDao.getUserMoneyAmount(user.getId()), user.getMoneyAmount());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        final int newMoneyAmount = 1100;
+        try{
+            userDao.setUserMoneyAmount(user.getId(), newMoneyAmount);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            assertEquals(userDao.getUserMoneyAmount(user.getId()), newMoneyAmount);
         } catch (Exception e){
             e.printStackTrace();
         }
