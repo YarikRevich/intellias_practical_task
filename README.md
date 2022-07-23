@@ -39,29 +39,29 @@ Then, you can use further "curl" requests to check if everything works fine
 
 ```
 //Test of users/createUser endpoint
-curl -d '{}' -H "Content-Type: application/json" -X POST http://localhost:8080/users/createUser
+curl -d '{"firstName": "Yaroslav", "secondName": "Svitlytskyi", "moneyAmount": 1000}' -H "Content-Type: application/json" -X POST http://localhost:8080/users/createUser
 
 //Test of users/deleteUser endpoint
-curl -d '{"id": }' -H "Content-Type: application/json" -X DELETE http://localhost:8080/users/deleteUser
+curl -d '{"id": 1}' -H "Content-Type: application/json" -X DELETE http://localhost:8080/users/deleteUser
 
 //Test of users/getAllUsers endpoint
 curl -H "Content-Type: application/json" -X GET http://localhost:8080/users/getAllUsers
 
 //Test of products/createProduct endpoint
-curl -d '{}' -H "Content-Type: application/json" -X POST http://localhost:8080/products/createProduct
+curl -d '{"name": "apple", "price": 200}' -H "Content-Type: application/json" -X POST http://localhost:8080/products/createProduct
 
 //Test of products/deleteProduct endpoint
-curl -d '{}' -H "Content-Type: application/json" -X DELETE http://localhost:8080/products/deleteProduct
+curl -d '{"id": 1}' -H "Content-Type: application/json" -X DELETE http://localhost:8080/products/deleteProduct
 
 //Test of products/getAllProducts endpoint
 curl -H "Content-Type: application/json" -X GET http://localhost:8080/products/getAllProducts
 
 //Test of transactions/buyProduct endpoint
-curl -d '{"userId": "", "productId": ""}' -H "Content-Type: application/json" -X POST http://localhost:8080/transactions/buyProduct
+curl -d '{"userId": "1", "productId": "2"}' -H "Content-Type: application/json" -X POST http://localhost:8080/transactions/buyProduct
 
 //Test of transactions/getAllProductsByUserId endpoint
-curl -d '{"id": ""}' -H "Content-Type: application/json" -X POST http://localhost:8080/transactions/getAllProductsByUserId
+curl -d '{"id": "1"}' -H "Content-Type: application/json" -X POST http://localhost:8080/transactions/getAllProductsByUserId
 
 //Test of transactions/getAllUsersByProductId endpoint
-curl -d '{"id": ""}' -H "Content-Type: application/json" -X POST http://localhost:8080/transactions/getAllUsersByProductId
+curl -d '{"id": "2"}' -H "Content-Type: application/json" -X POST http://localhost:8080/transactions/getAllUsersByProductId
 ```
